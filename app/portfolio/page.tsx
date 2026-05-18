@@ -47,9 +47,9 @@ export default function PortfolioPage() {
 
       {/* About Section */}
       <section className="max-w-5xl mx-auto px-6 py-16">
-        <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-lg p-10 border border-gray-100 dark:border-zinc-800">
+        <div className="bg-white rounded-3xl shadow-lg p-10 border border-gray-100">
           <h2 className="text-4xl font-bold mb-6 text-blue-600">About Me</h2>
-          <p className="text-gray-700 dark:text-gray-300 leading-8 text-lg">
+          <p className="text-gray-700 leading-8 text-lg">
             I am a motivated and detail-oriented individual with interests in air cargo operations,
             customer service, and data entry. I enjoy working with people, learning new skills,
             and delivering organized and accurate work. I am passionate about professionalism,
@@ -75,7 +75,7 @@ export default function PortfolioPage() {
           ].map((skill, idx) => (
             <div
               key={idx}
-              className="bg-white dark:bg-zinc-900 rounded-2xl shadow-md p-8 text-center font-semibold text-lg hover:shadow-lg hover:scale-105 transition border border-gray-100 dark:border-zinc-800"
+              className="bg-white rounded-2xl shadow-md p-8 text-center font-semibold text-lg hover:shadow-lg hover:scale-105 transition border border-gray-100"
             >
               {skill}
             </div>
@@ -87,29 +87,23 @@ export default function PortfolioPage() {
       <section className="max-w-5xl mx-auto px-6 py-16">
         <h2 className="text-4xl font-bold mb-12 text-center">Education</h2>
         <div className="space-y-6">
-          <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-md border border-gray-100 dark:border-zinc-800 hover:shadow-lg transition">
-            <h3 className="text-2xl font-bold text-blue-600 mb-2">
-              East African School of Aviation
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-lg font-medium">
+          <div className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-lg transition">
+            <h3 className="text-xl font-bold mb-3 text-blue-600">IATA Certification</h3>
+            <p className="text-gray-600 text-lg font-medium">
               Introductory in Air Cargo Management (2025 – 2026)
             </p>
           </div>
 
-          <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-md border border-gray-100 dark:border-zinc-800 hover:shadow-lg transition">
-            <h3 className="text-2xl font-bold text-blue-600 mb-2">
-              Segero Adventist High School
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-lg font-medium">
+          <div className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-lg transition">
+            <h3 className="text-xl font-bold mb-3 text-blue-600">Air Cargo Operations</h3>
+            <p className="text-gray-600 text-lg font-medium">
               2020 – 2024
             </p>
           </div>
 
-          <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-md border border-gray-100 dark:border-zinc-800 hover:shadow-lg transition">
-            <h3 className="text-2xl font-bold text-blue-600 mb-2">
-              Bamburi Great News Primary School
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-lg font-medium">
+          <div className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-lg transition">
+            <h3 className="text-xl font-bold mb-3 text-blue-600">Customer Support</h3>
+            <p className="text-gray-600 text-lg font-medium">
               2016 – 2020
             </p>
           </div>
@@ -118,13 +112,13 @@ export default function PortfolioPage() {
 
       {/* Certifications */}
       <section className="max-w-5xl mx-auto px-6 py-16">
-        <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-lg p-10 border border-gray-100 dark:border-zinc-800">
+        <div className="bg-white rounded-3xl shadow-lg p-10 border border-gray-100">
           <h2 className="text-3xl font-bold mb-6">Certifications</h2>
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-full flex items-center justify-center shrink-0 font-bold text-lg">
+            <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center shrink-0 font-bold text-lg">
               ✓
             </div>
-            <p className="text-lg text-gray-700 dark:text-gray-300">
+            <p className="text-lg text-gray-700">
               IATA Cargo Introductory Diploma
             </p>
           </div>
@@ -168,7 +162,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-zinc-800 py-8 px-6 text-center text-gray-600 dark:text-gray-400">
+      <footer className="border-t border-gray-200 py-8 px-6 text-center text-gray-600">
         <p>Portfolio of Enock Karisa Kahindi © 2025</p>
       </footer>
     </div>
