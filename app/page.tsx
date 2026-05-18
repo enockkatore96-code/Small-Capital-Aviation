@@ -207,9 +207,9 @@ export default function Home() {
             </section>
 
             {/* CEO Section */}
-            <section className="py-24 px-6 bg-white dark:bg-zinc-900/30">
+            <section className="py-24 px-6 bg-white">
               <div className="max-w-4xl mx-auto text-center">
-                <p className="text-blue-900 dark:text-blue-500 uppercase tracking-widest text-sm font-bold mb-4">
+                <p className="text-blue-900 uppercase tracking-widest text-sm font-bold mb-4">
                   Our Leadership
                 </p>
                 <h3 className="text-3xl md:text-5xl font-black mb-12">
@@ -219,7 +219,7 @@ export default function Home() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  className="relative w-64 h-64 mx-auto mb-8 rounded-[40px] overflow-hidden shadow-2xl border-8 border-white dark:border-zinc-800"
+                  className="relative w-64 h-64 mx-auto mb-8 rounded-[40px] overflow-hidden shadow-2xl border-8 border-white"
                 >
                   <img
                     src="/ceo.jpg"
@@ -231,7 +231,7 @@ export default function Home() {
                     }}
                   />
                 </motion.div>
-                <h4 className="text-3xl font-black text-zinc-900 dark:text-white mb-2">
+                <h4 className="text-3xl font-black text-gray-900 mb-2">
                   Kahindi Enock
                 </h4>
                 <p className="text-xl font-medium opacity-70 italic">
@@ -241,15 +241,13 @@ export default function Home() {
             </section>
 
             {/* Certification Section */}
-            <section
-              className={`py-24 px-6 ${darkMode ? "bg-zinc-900/50" : "bg-gray-100"}`}
-            >
+            <section className="py-24 px-6 bg-gray-100">
               <div className="max-w-4xl mx-auto text-center">
                 <h2 className="text-4xl font-bold mb-12">
                   Professional Certification
                 </h2>
-                <div className="bg-white dark:bg-zinc-800 p-12 rounded-[48px] shadow-xl border border-zinc-100 dark:border-zinc-700">
-                  <div className="w-24 h-24 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                <div className="bg-white p-12 rounded-[48px] shadow-xl border border-gray-100">
+                  <div className="w-24 h-24 bg-blue-100 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
                     <ShieldCheck size={48} />
                   </div>
                   <h3 className="text-2xl font-bold mb-4">
@@ -288,9 +286,7 @@ export default function Home() {
                     className={`p-10 rounded-[32px] shadow-sm border transition-all cursor-pointer flex flex-col items-center text-center justify-center min-h-[200px] ${
                       selectedService === s
                         ? "bg-blue-600 border-blue-600 text-white shadow-xl shadow-blue-600/20"
-                        : darkMode
-                          ? "bg-zinc-900 border-zinc-800 hover:border-blue-500"
-                          : "bg-white border-gray-100 hover:border-blue-500"
+                        : "bg-white border-gray-100 hover:border-blue-500"
                     }`}
                   >
                     <span className="font-bold text-xl">{s}</span>
@@ -309,11 +305,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
-                    className={`mt-10 p-10 rounded-[32px] border ${
-                      darkMode
-                        ? "bg-blue-900/20 border-blue-900/50"
-                        : "bg-blue-50 border-blue-100"
-                    }`}
+                    className={`mt-10 p-10 rounded-[32px] border bg-blue-50 border-blue-100`}
                   >
                     <h3 className="font-bold text-2xl mb-4 text-blue-600">
                       {selectedService}
@@ -327,9 +319,7 @@ export default function Home() {
             </section>
 
             {/* Tracking System */}
-            <section
-              className={`py-24 px-6 ${darkMode ? "bg-zinc-900/50" : "bg-gray-100"}`}
-            >
+            <section className="py-24 px-6 bg-gray-100">
               <div className="max-w-4xl mx-auto text-center">
                 <h2 className="text-4xl font-bold mb-6">Track Your Shipment</h2>
                 <p className="text-lg mb-12 opacity-70">
@@ -346,11 +336,7 @@ export default function Home() {
                       value={trackingId}
                       onChange={(e) => setTrackingId(e.target.value)}
                       placeholder="e.g. SC-7890123"
-                      className={`w-full pl-14 pr-6 py-5 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-lg ${
-                        darkMode
-                          ? "bg-zinc-900 border-zinc-800 text-white"
-                          : "bg-white border-gray-200"
-                      }`}
+                      className={`w-full pl-14 pr-6 py-5 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-lg bg-white border-gray-200`}
                     />
                   </div>
                   <button
@@ -366,7 +352,7 @@ export default function Home() {
                     <motion.p
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mt-10 text-xl font-semibold text-blue-600 bg-blue-50 dark:bg-blue-900/20 py-5 px-10 rounded-2xl inline-block"
+                      className="mt-10 text-xl font-semibold text-blue-600 bg-blue-50 py-5 px-10 rounded-2xl inline-block"
                     >
                       {trackingResult}
                     </motion.p>
