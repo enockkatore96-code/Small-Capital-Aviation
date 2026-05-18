@@ -1,524 +1,281 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Moon,
-  Sun,
-  Search,
-  Send,
-  MapPin,
-  Phone,
-  Mail,
-  ChevronRight,
-  Lock,
-  LogOut,
-  ShieldCheck,
-  Share2,
-  ArrowRight,
-} from "lucide-react";
-import { Chatbot } from "@/components/Chatbot";
-
-type PageState = "home" | "login" | "dashboard";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Phone, MapPin, Mail, ChevronRight, FileText, Menu, X } from "lucide-react";
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [page, setPage] = useState<PageState>("home");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [selectedService, setSelectedService] = useState<string | null>(null);
-  const [trackingId, setTrackingId] = useState("");
-  const [trackingResult, setTrackingResult] = useState("");
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email && password) {
-      setPage("dashboard");
-      setEmail("");
-      setPassword("");
-    } else {
-      alert("Please enter any email and password to continue (Demo Mode)");
-    }
-  };
-
-  const handleLogout = () => setPage("home");
-
-  const services: Record<string, string> = {
-    "Air Cargo":
-      "Full cargo lifecycle management including booking, documentation, airway bills, and coordination with airlines.",
-    Logistics:
-      "Integrated supply chain solutions: warehousing, inventory tracking, freight forwarding, and last-mile coordination.",
-    "Ground Handling":
-      "Aircraft loading/unloading, ramp services, cargo transfer, and turnaround coordination.",
-    Compliance:
-      "Strict adherence to IATA/ICAO regulations, safety audits, and dangerous goods handling procedures.",
-  };
-
-  const handleTracking = () => {
-    if (!trackingId) {
-      setTrackingResult("Please enter a valid Tracking ID.");
-      return;
-    }
-    setTrackingResult("Shipment is in transit — Estimated arrival: 24 hours");
-  };
+  const [showCertificate, setShowCertificate] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className={darkMode ? "dark bg-zinc-950 text-white" : "bg-gray-50 text-gray-800"}>
-      {/* Header */}
-      <header className="flex justify-between items-center p-5 bg-blue-900 text-white sticky top-0 z-50 shadow-lg">
-        <h1 className="font-bold text-lg md:text-xl tracking-tight flex items-center gap-2">
-          <ShieldCheck className="text-orange-500" />
-          Small Capital Aviation
-        </h1>
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-2 hover:bg-blue-800 rounded-full transition-colors"
-            title="Toggle Theme"
-          >
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+    <div className="bg-slate-900 text-white min-h-screen">
+      {/* Header with Logo */}
+      <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-amber-600/30">
+        <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <img src="/logo.png" alt="Small Capital Aviation" className="h-16 w-auto" />
+          </div>
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="#mission" className="text-amber-400 hover:text-amber-300 transition text-sm font-semibold">Mission</a>
+            <a href="#services" className="text-amber-400 hover:text-amber-300 transition text-sm font-semibold">Services</a>
+            <a href="#leadership" className="text-amber-400 hover:text-amber-300 transition text-sm font-semibold">Leadership</a>
+            <a href="#contact" className="text-amber-400 hover:text-amber-300 transition text-sm font-semibold">Contact</a>
+            <Link href="/portfolio" className="bg-amber-600 hover:bg-amber-700 px-6 py-2 rounded-lg transition font-semibold text-sm">
+              Portfolio
+            </Link>
+          </nav>
+          <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-
-          {page === "dashboard" && (
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl text-sm transition-colors font-medium"
-            >
-              <LogOut size={16} /> Logout
-            </button>
-          )}
         </div>
-      </header>
-
-      <main className="min-h-[calc(100vh-76px)] flex flex-col">
-        {/* HOME PAGE */}
-        {page === "home" && (
-          <section className="flex-1 flex flex-col items-center justify-center text-center px-6 py-20 bg-gradient-to-b from-blue-900/5 to-transparent">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="max-w-4xl"
-            >
-              <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight text-balance">
-                Welcome to <span className="text-blue-600">Small Capital</span>{" "}
-                Aviation
-              </h2>
-              <p className="text-lg md:text-2xl opacity-70 mb-12 max-w-2xl mx-auto leading-relaxed text-pretty">
-                Elevating global logistics through professional cargo operations
-                and innovative aviation solutions.
-              </p>
-              <button
-                onClick={() => setPage("login")}
-                className="inline-flex items-center gap-3 bg-blue-600 text-white font-black px-10 py-5 rounded-2xl hover:bg-blue-700 transition-all active:scale-95 shadow-xl shadow-blue-600/30 text-xl"
-              >
-                Access Client Portal <ArrowRight size={24} />
-              </button>
-            </motion.div>
-          </section>
-        )}
-
-        {/* LOGIN PAGE */}
-        {page === "login" && (
-          <section className="flex-1 flex flex-col items-center justify-center p-6 text-center py-20">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-md bg-white dark:bg-zinc-900 p-10 md:p-12 rounded-[48px] shadow-2xl border border-zinc-100 dark:border-zinc-800"
-            >
-              <div className="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
-                <Lock size={40} />
-              </div>
-              <h2 className="text-3xl font-black mb-2 tracking-tight">
-                Client Sign In
-              </h2>
-              <p className="text-lg opacity-60 mb-10 font-medium italic">
-                Demo: Enter any credentials
-              </p>
-
-              <form onSubmit={handleLogin} className="space-y-6 text-left">
-                <div className="space-y-3">
-                  <label className="text-sm font-black text-blue-900 dark:text-blue-400 uppercase tracking-widest opacity-60 ml-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="client@example.com"
-                    className="w-full p-5 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all text-lg"
-                    required
-                  />
-                </div>
-                <div className="space-y-3">
-                  <label className="text-sm font-black text-blue-900 dark:text-blue-400 uppercase tracking-widest opacity-60 ml-1">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full p-5 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all text-lg"
-                    required
-                  />
-                </div>
-                <button className="w-full bg-blue-600 text-white font-black py-6 rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-3 mt-4 shadow-xl shadow-blue-600/30 text-xl">
-                  Enter Portal <ChevronRight size={24} />
-                </button>
-              </form>
-              <button
-                onClick={() => setPage("home")}
-                className="mt-8 text-sm font-bold opacity-40 hover:opacity-100 transition-opacity"
-              >
-                Back to Home
-              </button>
-            </motion.div>
-          </section>
-        )}
-
-        {/* DASHBOARD PAGE */}
-        {page === "dashboard" && (
-          <div className="flex-1 flex flex-col">
-            {/* Hero with YouTube Background */}
-            <section className="relative h-[80vh] flex items-center justify-center text-center text-white overflow-hidden">
-              <div className="absolute inset-0 pointer-events-none scale-110">
-                <iframe
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[115vw] h-[115vh] max-w-none border-none pointer-events-none"
-                  src="https://www.youtube.com/embed/avPvQetuZzg?autoplay=1&mute=1&loop=1&playlist=avPvQetuZzg&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
-                  allow="autoplay; fullscreen"
-                ></iframe>
-              </div>
-              <div className="absolute inset-0 bg-blue-900/60 backdrop-blur-[2px]" />
-              <div className="relative z-10 px-6">
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-5xl md:text-7xl font-bold mb-4 text-balance"
-                >
-                  Welcome to Small Capital Aviation
-                </motion.h2>
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-xl md:text-2xl font-light"
-                >
-                  Cargo & Logistics Excellence
-                </motion.p>
-              </div>
-            </section>
-
-            {/* CEO Section */}
-            <section className="py-24 px-6 bg-white dark:bg-zinc-900/30">
-              <div className="max-w-4xl mx-auto text-center">
-                <p className="text-blue-900 dark:text-blue-500 uppercase tracking-widest text-sm font-bold mb-4">
-                  Our Leadership
-                </p>
-                <h3 className="text-3xl md:text-5xl font-black mb-12">
-                  Chief Executive Officer
-                </h3>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  className="relative w-64 h-64 mx-auto mb-8 rounded-[40px] overflow-hidden shadow-2xl border-8 border-white dark:border-zinc-800"
-                >
-                  <img
-                    src="/ceo.jpg"
-                    alt="Kahindi Enock - CEO of Small Capital Aviation"
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "https://via.placeholder.com/400x400?text=CEO+Photo";
-                    }}
-                  />
-                </motion.div>
-                <h4 className="text-3xl font-black text-zinc-900 dark:text-white mb-2">
-                  Kahindi Enock
-                </h4>
-                <p className="text-xl font-medium opacity-70 italic">
-                  Founder & CEO
-                </p>
-              </div>
-            </section>
-
-            {/* Certification Section */}
-            <section
-              className={`py-24 px-6 ${darkMode ? "bg-zinc-900/50" : "bg-gray-100"}`}
-            >
-              <div className="max-w-4xl mx-auto text-center">
-                <h2 className="text-4xl font-bold mb-12">
-                  Professional Certification
-                </h2>
-                <div className="bg-white dark:bg-zinc-800 p-12 rounded-[48px] shadow-xl border border-zinc-100 dark:border-zinc-700">
-                  <div className="w-24 h-24 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
-                    <ShieldCheck size={48} />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-4">
-                    Cargo Introductory Diploma (IATA)
-                  </h3>
-                  <p className="text-lg opacity-70 mb-10 max-w-lg mx-auto leading-relaxed">
-                    Recognized global standard certification ensuring expertise
-                    in international cargo handling, safety, and operational
-                    excellence.
-                  </p>
-                  <a
-                    href="/certificate.pdf"
-                    target="_blank"
-                    className="inline-flex items-center gap-3 bg-blue-600 text-white font-bold px-10 py-5 rounded-2xl hover:bg-blue-700 transition-all active:scale-95 shadow-lg shadow-blue-600/20"
-                  >
-                    View Certificate <ChevronRight size={24} />
-                  </a>
-                </div>
-              </div>
-            </section>
-
-            {/* Services */}
-            <section className="py-24 px-6 max-w-7xl mx-auto">
-              <h2 className="text-4xl font-bold text-center mb-16">
-                Operational Services
-              </h2>
-              <div className="grid md:grid-cols-4 gap-8">
-                {Object.keys(services).map((s, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ scale: 1.05, y: -8 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() =>
-                      setSelectedService(s === selectedService ? null : s)
-                    }
-                    className={`p-10 rounded-[32px] shadow-sm border transition-all cursor-pointer flex flex-col items-center text-center justify-center min-h-[200px] ${
-                      selectedService === s
-                        ? "bg-blue-600 border-blue-600 text-white shadow-xl shadow-blue-600/20"
-                        : darkMode
-                          ? "bg-zinc-900 border-zinc-800 hover:border-blue-500"
-                          : "bg-white border-gray-100 hover:border-blue-500"
-                    }`}
-                  >
-                    <span className="font-bold text-xl">{s}</span>
-                    <div
-                      className={`mt-6 transition-transform duration-300 ${selectedService === s ? "rotate-90" : ""}`}
-                    >
-                      <ChevronRight size={24} />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              <AnimatePresence>
-                {selectedService && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
-                    className={`mt-10 p-10 rounded-[32px] border ${
-                      darkMode
-                        ? "bg-blue-900/20 border-blue-900/50"
-                        : "bg-blue-50 border-blue-100"
-                    }`}
-                  >
-                    <h3 className="font-bold text-2xl mb-4 text-blue-600">
-                      {selectedService}
-                    </h3>
-                    <p className="text-xl leading-relaxed opacity-90">
-                      {services[selectedService]}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </section>
-
-            {/* Tracking System */}
-            <section
-              className={`py-24 px-6 ${darkMode ? "bg-zinc-900/50" : "bg-gray-100"}`}
-            >
-              <div className="max-w-4xl mx-auto text-center">
-                <h2 className="text-4xl font-bold mb-6">Track Your Shipment</h2>
-                <p className="text-lg mb-12 opacity-70">
-                  Enter your airway bill or tracking number to get real-time
-                  updates
-                </p>
-                <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-                  <div className="relative w-full max-w-lg">
-                    <Search
-                      className="absolute left-5 top-1/2 -translate-y-1/2 opacity-40"
-                      size={24}
-                    />
-                    <input
-                      value={trackingId}
-                      onChange={(e) => setTrackingId(e.target.value)}
-                      placeholder="e.g. SC-7890123"
-                      className={`w-full pl-14 pr-6 py-5 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-lg ${
-                        darkMode
-                          ? "bg-zinc-900 border-zinc-800 text-white"
-                          : "bg-white border-gray-200"
-                      }`}
-                    />
-                  </div>
-                  <button
-                    onClick={handleTracking}
-                    className="w-full md:w-auto px-12 py-5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all active:scale-95 shadow-lg shadow-blue-600/20"
-                  >
-                    Track
-                  </button>
-                </div>
-
-                <AnimatePresence>
-                  {trackingResult && (
-                    <motion.p
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mt-10 text-xl font-semibold text-blue-600 bg-blue-50 dark:bg-blue-900/20 py-5 px-10 rounded-2xl inline-block"
-                    >
-                      {trackingResult}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </div>
-            </section>
-
-            {/* Contact */}
-            <section className="py-24 px-6 bg-blue-900 text-white">
-              <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-                <div>
-                  <h2 className="text-5xl font-bold mb-10">Connect With Us</h2>
-                  <p className="text-blue-100 text-xl mb-12 leading-relaxed">
-                    Ready to elevate your cargo operations? Reach out to our
-                    dedicated team in Nairobi for global logistics support.
-                  </p>
-
-                  <div className="flex flex-wrap gap-6 mt-12 mb-12">
-                    <a
-                      href="mailto:kahindienock83@gmail.com"
-                      className="inline-flex items-center gap-3 bg-white text-blue-900 font-bold px-10 py-5 rounded-2xl hover:bg-blue-50 transition-all active:scale-95 shadow-xl"
-                    >
-                      <Mail size={24} /> Send Email
-                    </a>
-                    <button className="w-16 h-16 bg-white/10 text-white rounded-2xl flex items-center justify-center hover:bg-white/20 transition-colors">
-                      <Share2 size={28} />
-                    </button>
-                  </div>
-
-                  <div className="space-y-10 text-left">
-                    <div className="flex items-center gap-8">
-                      <div className="w-16 h-16 bg-white/10 rounded-3xl flex items-center justify-center shrink-0">
-                        <Mail size={32} />
-                      </div>
-                      <div>
-                        <div className="text-blue-300 text-sm font-bold uppercase tracking-wider mb-1">
-                          Email Inquiry
-                        </div>
-                        <div className="text-2xl font-bold">
-                          kahindienock83@gmail.com
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-8">
-                      <div className="w-16 h-16 bg-white/10 rounded-3xl flex items-center justify-center shrink-0">
-                        <Phone size={32} />
-                      </div>
-                      <div>
-                        <div className="text-blue-300 text-sm font-bold uppercase tracking-wider mb-1">
-                          Direct Line
-                        </div>
-                        <div className="text-2xl font-bold">+254 794606252</div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-8">
-                      <div className="w-16 h-16 bg-white/10 rounded-3xl flex items-center justify-center shrink-0">
-                        <MapPin size={32} />
-                      </div>
-                      <div>
-                        <div className="text-blue-300 text-sm font-bold uppercase tracking-wider mb-1">
-                          Operations Base
-                        </div>
-                        <div className="text-2xl font-bold">
-                          Nairobi, Kenya (00100)
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-[48px] p-12 shadow-2xl text-gray-800"
-                >
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      alert(
-                        "Your inquiry has been received! Our team will contact you shortly."
-                      );
-                    }}
-                    className="space-y-6"
-                  >
-                    <h3 className="text-3xl font-black text-blue-900 mb-8">
-                      Send Inquiry
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <input
-                        placeholder="Full Name"
-                        className="p-5 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
-                      />
-                      <input
-                        placeholder="Company"
-                        className="p-5 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    <input
-                      type="email"
-                      placeholder="Email Address"
-                      className="w-full p-5 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                    <textarea
-                      rows={5}
-                      placeholder="How can we help you?"
-                      className="w-full p-5 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                      required
-                    ></textarea>
-                    <button className="w-full bg-blue-600 text-white font-black py-6 rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-3 shadow-xl shadow-blue-600/30 text-xl">
-                      <Send size={24} /> Submit Inquiry
-                    </button>
-                  </form>
-                </motion.div>
-              </div>
-            </section>
-
-            {/* Footer */}
-            <footer className="bg-zinc-950 text-white py-16 px-6">
-              <div className="max-w-7xl mx-auto text-center">
-                <div className="flex items-center justify-center gap-3 mb-6">
-                  <ShieldCheck className="text-orange-500" size={32} />
-                  <span className="text-2xl font-bold">
-                    Small Capital Aviation
-                  </span>
-                </div>
-                <p className="text-zinc-400 mb-8 max-w-md mx-auto">
-                  Professional cargo operations and innovative aviation
-                  solutions for global logistics.
-                </p>
-                <div className="border-t border-zinc-800 pt-8 mt-8">
-                  <p className="text-zinc-500 text-sm">
-                    &copy; {new Date().getFullYear()} Small Capital Aviation.
-                    All rights reserved.
-                  </p>
-                </div>
-              </div>
-            </footer>
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-amber-600/30 px-6 py-4 flex flex-col gap-4">
+            <a href="#mission" className="text-amber-400">Mission</a>
+            <a href="#services" className="text-amber-400">Services</a>
+            <a href="#leadership" className="text-amber-400">Leadership</a>
+            <a href="#contact" className="text-amber-400">Contact</a>
+            <Link href="/portfolio" className="bg-amber-600 px-4 py-2 rounded-lg text-center">Portfolio</Link>
           </div>
         )}
-      </main>
+      </header>
 
-      {/* Chatbot */}
-      <Chatbot />
+      {/* Hero Section with Large Logo and Air Cargo Images */}
+      <section className="relative py-16 px-6 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+        <div className="max-w-7xl mx-auto">
+          {/* Large Logo and Motto */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <img 
+              src="/logo.png" 
+              alt="Small Capital Aviation" 
+              className="h-48 w-auto mx-auto mb-8 drop-shadow-2xl"
+            />
+            <h1 className="text-6xl md:text-7xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">
+              Delivering Beyond Horizons
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-300 mb-8 font-light">
+              Excellence in Global Air Cargo & Logistics
+            </p>
+            <a href="#mission" className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 px-10 py-4 rounded-xl font-bold text-lg transition">
+              Explore Our Services <ChevronRight size={24} />
+            </a>
+          </motion.div>
+
+          {/* Air Cargo Images Grid */}
+          <div className="grid md:grid-cols-2 gap-6 mt-16">
+            {/* Large Image */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="md:row-span-2"
+            >
+              <img 
+                src="/cargo-plane-flight.jpg" 
+                alt="Cargo Plane in Flight"
+                className="w-full h-96 md:h-full object-cover rounded-2xl shadow-2xl border-2 border-amber-600/50"
+              />
+            </motion.div>
+
+            {/* Grid Images */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <img 
+                src="/cargo-aircraft.jpg" 
+                alt="Cargo Aircraft Loading"
+                className="w-full h-44 object-cover rounded-2xl shadow-xl border-2 border-amber-600/50"
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <img 
+                src="/cargo-warehouse.jpg" 
+                alt="Cargo Warehouse"
+                className="w-full h-44 object-cover rounded-2xl shadow-xl border-2 border-amber-600/50"
+              />
+            </motion.div>
+          </div>
+
+          {/* Additional Large Cargo Image */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mt-6"
+          >
+            <img 
+              src="/cargo-airport.jpg" 
+              alt="Airport Tarmac Operations"
+              className="w-full h-64 object-cover rounded-2xl shadow-2xl border-2 border-amber-600/50"
+            />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Mission Section */}
+      <section id="mission" className="py-24 px-6 bg-slate-800/50 border-y border-amber-600/20">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-5xl font-bold text-amber-400 mb-8 text-center">Our Mission</h2>
+            <p className="text-xl text-slate-200 text-center leading-relaxed mb-8">
+              To simplify global cargo movement by delivering fast, secure, and dependable air freight solutions while maintaining the highest standards of safety, efficiency, and customer satisfaction.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-5xl font-bold text-amber-400 mb-16 text-center">Our Services</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { title: "Air Cargo", desc: "Fast & secure international freight solutions with real-time tracking", icon: "✈️" },
+              { title: "Ground Handling", desc: "Professional cargo management, loading, and tarmac operations", icon: "📦" },
+              { title: "Logistics", desc: "End-to-end supply chain management and freight forwarding", icon: "🚚" },
+            ].map((service, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-slate-800 border border-amber-600/30 p-8 rounded-2xl hover:border-amber-500/60 transition hover:bg-slate-700/50"
+              >
+                <div className="text-5xl mb-4">{service.icon}</div>
+                <h3 className="text-2xl font-bold text-amber-400 mb-3">{service.title}</h3>
+                <p className="text-slate-300 leading-relaxed">{service.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Leadership Section */}
+      <section id="leadership" className="py-24 px-6 bg-slate-800/50 border-y border-amber-600/20">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-5xl font-bold text-amber-400 mb-16 text-center">Leadership</h2>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <img
+              src="/ceo.jpg"
+              alt="Enock Karisa Kahindi - CEO"
+              className="w-80 h-80 rounded-2xl mx-auto mb-8 object-cover border-4 border-amber-600 shadow-2xl"
+            />
+            <h3 className="text-3xl font-bold text-amber-400 mb-2">Enock Karisa Kahindi</h3>
+            <p className="text-xl text-slate-300 mb-8 font-light">Founder & CEO</p>
+            
+            {/* Certificate Display */}
+            <motion.button
+              onClick={() => setShowCertificate(!showCertificate)}
+              className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 px-8 py-3 rounded-xl font-semibold transition"
+            >
+              <FileText size={20} /> View IATA Certification
+            </motion.button>
+
+            {showCertificate && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-12 bg-slate-900 p-8 rounded-2xl border border-amber-600/30"
+              >
+                <iframe
+                  src="/certificate.pdf"
+                  className="w-full h-96 rounded-lg"
+                  title="IATA Certification"
+                />
+                <p className="text-slate-300 mt-4 text-center">IATA Cargo Introductory Diploma - Issued April 2, 2026</p>
+              </motion.div>
+            )}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-24 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-5xl font-bold text-amber-400 mb-16 text-center">Get In Touch</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Phone */}
+            <motion.a
+              href="tel:+254794606252"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-slate-800 border border-amber-600/30 p-8 rounded-2xl hover:border-amber-500/60 transition text-center hover:bg-slate-700/80"
+            >
+              <Phone className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-amber-400 mb-2">Call Us</h3>
+              <p className="text-slate-300 font-semibold">+254 794 606 252</p>
+              <p className="text-sm text-slate-400 mt-2">Tap to call or text</p>
+            </motion.a>
+
+            {/* Email */}
+            <motion.a
+              href="mailto:kahindienock83@gmail.com"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="bg-slate-800 border border-amber-600/30 p-8 rounded-2xl hover:border-amber-500/60 transition text-center hover:bg-slate-700/80"
+            >
+              <Mail className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-amber-400 mb-2">Email</h3>
+              <p className="text-slate-300 font-semibold">kahindienock83@gmail.com</p>
+              <p className="text-sm text-slate-400 mt-2">Send us a message</p>
+            </motion.a>
+
+            {/* Location */}
+            <motion.a
+              href="https://www.google.com/maps/search/nairobi+kenya"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="bg-slate-800 border border-amber-600/30 p-8 rounded-2xl hover:border-amber-500/60 transition text-center hover:bg-slate-700/80"
+            >
+              <MapPin className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-amber-400 mb-2">Location</h3>
+              <p className="text-slate-300 font-semibold">Nairobi, Kenya</p>
+              <p className="text-sm text-slate-400 mt-2">View on Google Maps</p>
+            </motion.a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-950 border-t border-amber-600/20 py-12 px-6">
+        <div className="max-w-6xl mx-auto text-center text-slate-400">
+          <p>&copy; 2026 Small Capital Aviation. All rights reserved.</p>
+          <p className="mt-2 text-sm text-amber-600">Delivering Beyond Horizons</p>
+        </div>
+      </footer>
     </div>
   );
 }
