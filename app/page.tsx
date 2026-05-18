@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Moon,
@@ -72,6 +73,12 @@ export default function Home() {
           Small Capital Aviation
         </h1>
         <div className="flex items-center gap-4">
+          <Link
+            href="/portfolio"
+            className="text-sm font-semibold hover:text-orange-300 transition-colors hidden md:block"
+          >
+            Portfolio
+          </Link>
           <button
             onClick={() => setDarkMode(!darkMode)}
             className="p-2 hover:bg-blue-800 rounded-full transition-colors"
