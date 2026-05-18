@@ -4,8 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Moon,
-  Sun,
   Search,
   Send,
   MapPin,
@@ -23,7 +21,6 @@ import { Chatbot } from "@/components/Chatbot";
 type PageState = "home" | "login" | "dashboard";
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
   const [page, setPage] = useState<PageState>("home");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,7 +62,7 @@ export default function Home() {
   };
 
   return (
-    <div className={darkMode ? "dark bg-zinc-950 text-white" : "bg-gray-50 text-gray-800"}>
+    <div className="bg-white text-gray-900">
       {/* Header */}
       <header className="flex justify-between items-center p-5 bg-blue-900 text-white sticky top-0 z-50 shadow-lg">
         <h1 className="font-bold text-lg md:text-xl tracking-tight flex items-center gap-2">
@@ -75,22 +72,15 @@ export default function Home() {
         <div className="flex items-center gap-4">
           <Link
             href="/portfolio"
-            className="text-sm font-semibold hover:text-orange-300 transition-colors hidden md:block"
+            className="text-sm font-semibold hover:text-orange-500 transition-colors hidden md:block text-gray-700"
           >
             Portfolio
           </Link>
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-2 hover:bg-blue-800 rounded-full transition-colors"
-            title="Toggle Theme"
-          >
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
 
           {page === "dashboard" && (
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl text-sm transition-colors font-medium"
+              className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-xl text-sm transition-colors font-medium text-gray-900"
             >
               <LogOut size={16} /> Logout
             </button>
@@ -131,21 +121,21 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-md bg-white dark:bg-zinc-900 p-10 md:p-12 rounded-[48px] shadow-2xl border border-zinc-100 dark:border-zinc-800"
+              className="w-full max-w-md bg-white p-10 md:p-12 rounded-[48px] shadow-lg border border-gray-200"
             >
-              <div className="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
+              <div className="w-20 h-20 bg-blue-100 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
                 <Lock size={40} />
               </div>
-              <h2 className="text-3xl font-black mb-2 tracking-tight">
+              <h2 className="text-3xl font-black mb-2 tracking-tight text-gray-900">
                 Client Sign In
               </h2>
-              <p className="text-lg opacity-60 mb-10 font-medium italic">
+              <p className="text-lg opacity-60 mb-10 font-medium italic text-gray-700">
                 Demo: Enter any credentials
               </p>
 
               <form onSubmit={handleLogin} className="space-y-6 text-left">
                 <div className="space-y-3">
-                  <label className="text-sm font-black text-blue-900 dark:text-blue-400 uppercase tracking-widest opacity-60 ml-1">
+                  <label className="text-sm font-black text-blue-900 uppercase tracking-widest opacity-60 ml-1">
                     Email
                   </label>
                   <input
@@ -153,12 +143,12 @@ export default function Home() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="client@example.com"
-                    className="w-full p-5 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all text-lg"
+                    className="w-full p-5 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all text-lg text-gray-900 placeholder-gray-400"
                     required
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-sm font-black text-blue-900 dark:text-blue-400 uppercase tracking-widest opacity-60 ml-1">
+                  <label className="text-sm font-black text-blue-900 uppercase tracking-widest opacity-60 ml-1">
                     Password
                   </label>
                   <input
@@ -166,17 +156,17 @@ export default function Home() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full p-5 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all text-lg"
+                    className="w-full p-5 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all text-lg text-gray-900 placeholder-gray-400"
                     required
                   />
                 </div>
-                <button className="w-full bg-blue-600 text-white font-black py-6 rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-3 mt-4 shadow-xl shadow-blue-600/30 text-xl">
+                <button className="w-full bg-blue-600 text-white font-black py-6 rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-3 mt-4 shadow-lg shadow-blue-600/30 text-xl hover:bg-blue-700">
                   Enter Portal <ChevronRight size={24} />
                 </button>
               </form>
               <button
                 onClick={() => setPage("home")}
-                className="mt-8 text-sm font-bold opacity-40 hover:opacity-100 transition-opacity"
+                className="mt-8 text-sm font-bold text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Back to Home
               </button>

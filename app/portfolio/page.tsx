@@ -5,29 +5,27 @@ import Link from "next/link";
 import { ArrowLeft, Mail, Phone, MapPin } from "lucide-react";
 
 export default function PortfolioPage() {
-  const [darkMode, setDarkMode] = useState(false);
-
   return (
-    <div className={darkMode ? "dark bg-zinc-950 text-white" : "bg-gray-50 text-gray-900"}>
+    <div className="bg-white text-gray-900">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition">
             <ArrowLeft size={20} />
             Back to Aviation
           </Link>
-          <h1 className="text-2xl font-bold">Enock Karisa Kahindi</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Enock Karisa Kahindi</h1>
           <div className="w-10" />
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-blue-50 to-white dark:from-zinc-900 dark:to-zinc-950 border-b border-gray-200 dark:border-zinc-800">
+      <section className="bg-gradient-to-b from-blue-50 to-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-6 py-20 text-center">
-          <h1 className="text-5xl md:text-6xl font-black mb-4 text-balance">
+          <h1 className="text-5xl md:text-6xl font-black mb-4 text-balance text-gray-900">
             Enock Karisa Kahindi
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
+          <p className="text-xl text-gray-600 mb-8">
             Entry-Level Air Cargo, Customer Support & Data Entry Professional
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
@@ -39,7 +37,7 @@ export default function PortfolioPage() {
             </a>
             <a
               href="#skills"
-              className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-xl hover:bg-blue-50 dark:hover:bg-zinc-900 transition font-bold"
+              className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-xl hover:bg-blue-50 transition font-bold"
             >
               View Skills
             </a>
