@@ -3,18 +3,19 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Phone, MapPin, Mail, ChevronRight, FileText } from "lucide-react";
+import { Phone, MapPin, Mail, ChevronRight, FileText, Menu, X } from "lucide-react";
 
 export default function Home() {
   const [showCertificate, setShowCertificate] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="bg-slate-900 text-white min-h-screen">
       {/* Header with Logo */}
       <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-amber-600/30">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Small Capital Aviation" className="h-14 w-auto" />
+            <img src="/logo.png" alt="Small Capital Aviation" className="h-16 w-auto" />
           </div>
           <nav className="hidden md:flex items-center gap-8">
             <a href="#mission" className="text-amber-400 hover:text-amber-300 transition text-sm font-semibold">Mission</a>
@@ -25,34 +26,104 @@ export default function Home() {
               Portfolio
             </Link>
           </nav>
-          <div className="md:hidden">
-            <Link href="/portfolio" className="bg-amber-600 hover:bg-amber-700 px-4 py-2 rounded-lg transition font-semibold text-sm">
-              Portfolio
-            </Link>
-          </div>
+          <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-amber-600/30 px-6 py-4 flex flex-col gap-4">
+            <a href="#mission" className="text-amber-400">Mission</a>
+            <a href="#services" className="text-amber-400">Services</a>
+            <a href="#leadership" className="text-amber-400">Leadership</a>
+            <a href="#contact" className="text-amber-400">Contact</a>
+            <Link href="/portfolio" className="bg-amber-600 px-4 py-2 rounded-lg text-center">Portfolio</Link>
+          </div>
+        )}
       </header>
 
-      {/* Hero Section with Motto */}
-      <section className="relative py-32 px-6 overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 right-20 w-96 h-96 bg-amber-500 rounded-full blur-3xl"></div>
-        </div>
-        <div className="max-w-6xl mx-auto relative z-10 text-center">
+      {/* Hero Section with Large Logo and Air Cargo Images */}
+      <section className="relative py-16 px-6 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+        <div className="max-w-7xl mx-auto">
+          {/* Large Logo and Motto */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
+            className="text-center mb-16"
           >
-            <h1 className="text-6xl md:text-7xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">
+            <img 
+              src="/logo.png" 
+              alt="Small Capital Aviation" 
+              className="h-48 w-auto mx-auto mb-8 drop-shadow-2xl"
+            />
+            <h1 className="text-6xl md:text-7xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">
               Delivering Beyond Horizons
             </h1>
-            <p className="text-xl md:text-2xl text-slate-300 mb-12 font-light max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-slate-300 mb-8 font-light">
               Excellence in Global Air Cargo & Logistics
             </p>
-            <a href="#services" className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 px-10 py-4 rounded-xl font-bold text-lg transition">
-              Explore Services <ChevronRight size={24} />
+            <a href="#mission" className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 px-10 py-4 rounded-xl font-bold text-lg transition">
+              Explore Our Services <ChevronRight size={24} />
             </a>
+          </motion.div>
+
+          {/* Air Cargo Images Grid */}
+          <div className="grid md:grid-cols-2 gap-6 mt-16">
+            {/* Large Image */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="md:row-span-2"
+            >
+              <img 
+                src="/cargo-plane-flight.jpg" 
+                alt="Cargo Plane in Flight"
+                className="w-full h-96 md:h-full object-cover rounded-2xl shadow-2xl border-2 border-amber-600/50"
+              />
+            </motion.div>
+
+            {/* Grid Images */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <img 
+                src="/cargo-aircraft.jpg" 
+                alt="Cargo Aircraft Loading"
+                className="w-full h-44 object-cover rounded-2xl shadow-xl border-2 border-amber-600/50"
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <img 
+                src="/cargo-warehouse.jpg" 
+                alt="Cargo Warehouse"
+                className="w-full h-44 object-cover rounded-2xl shadow-xl border-2 border-amber-600/50"
+              />
+            </motion.div>
+          </div>
+
+          {/* Additional Large Cargo Image */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mt-6"
+          >
+            <img 
+              src="/cargo-airport.jpg" 
+              alt="Airport Tarmac Operations"
+              className="w-full h-64 object-cover rounded-2xl shadow-2xl border-2 border-amber-600/50"
+            />
           </motion.div>
         </div>
       </section>
@@ -65,7 +136,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-amber-400 mb-8 text-center">Our Mission</h2>
+            <h2 className="text-5xl font-bold text-amber-400 mb-8 text-center">Our Mission</h2>
             <p className="text-xl text-slate-200 text-center leading-relaxed mb-8">
               To simplify global cargo movement by delivering fast, secure, and dependable air freight solutions while maintaining the highest standards of safety, efficiency, and customer satisfaction.
             </p>
@@ -76,7 +147,7 @@ export default function Home() {
       {/* Services Section */}
       <section id="services" className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-amber-400 mb-16 text-center">Our Services</h2>
+          <h2 className="text-5xl font-bold text-amber-400 mb-16 text-center">Our Services</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { title: "Air Cargo", desc: "Fast & secure international freight solutions with real-time tracking", icon: "✈️" },
@@ -103,7 +174,7 @@ export default function Home() {
       {/* Leadership Section */}
       <section id="leadership" className="py-24 px-6 bg-slate-800/50 border-y border-amber-600/20">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-amber-400 mb-16 text-center">Leadership</h2>
+          <h2 className="text-5xl font-bold text-amber-400 mb-16 text-center">Leadership</h2>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -113,7 +184,7 @@ export default function Home() {
             <img
               src="/ceo.jpg"
               alt="Enock Karisa Kahindi - CEO"
-              className="w-64 h-64 rounded-2xl mx-auto mb-8 object-cover border-4 border-amber-600 shadow-2xl"
+              className="w-80 h-80 rounded-2xl mx-auto mb-8 object-cover border-4 border-amber-600 shadow-2xl"
             />
             <h3 className="text-3xl font-bold text-amber-400 mb-2">Enock Karisa Kahindi</h3>
             <p className="text-xl text-slate-300 mb-8 font-light">Founder & CEO</p>
@@ -147,7 +218,7 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-24 px-6">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-amber-400 mb-16 text-center">Get In Touch</h2>
+          <h2 className="text-5xl font-bold text-amber-400 mb-16 text-center">Get In Touch</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {/* Phone */}
             <motion.a
