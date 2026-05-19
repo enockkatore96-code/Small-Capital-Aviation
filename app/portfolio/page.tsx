@@ -1,9 +1,39 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Phone, MapPin, ExternalLink, Award, Trophy } from "lucide-react";
+import { Mail, Phone, MapPin, ExternalLink, Award, Briefcase, Star } from "lucide-react";
+import Image from "next/image";
 
 export default function PortfolioPage() {
+  const skills = [
+    "Air Waybill (AWB / e-AWB) preparation",
+    "Cargo acceptance procedures",
+    "TACT chargeable weight calculations",
+    "Basic knowledge of Dangerous Goods (IATA DGR)",
+    "Documentation verification and compliance",
+    "Data entry and Microsoft Excel",
+    "Strong attention to detail and accuracy",
+    "Communication and teamwork",
+  ];
+
+  const galleryImages = [
+    { src: "/dhl-cargo-ops.jpg", alt: "DHL Cargo Operations" },
+    { src: "/awb-documentation.jpg", alt: "Air Waybill Documentation" },
+    { src: "/cargo-team.jpg", alt: "Cargo Team Working" },
+    { src: "/weight-calculation.jpg", alt: "Weight Calculation" },
+    { src: "/cargo-aircraft.jpg", alt: "Cargo Aircraft" },
+    { src: "/cargo-warehouse.jpg", alt: "Cargo Warehouse" },
+  ];
+
+  const partners = [
+    { name: "DHL Kenya", logo: "🚚" },
+    { name: "Kenya Airways Cargo", logo: "✈️" },
+    { name: "JACO Kenya", logo: "📦" },
+    { name: "KMPDU Cargo", logo: "🔧" },
+    { name: "Phoenix Air Cargo", logo: "🛫" },
+    { name: "AAA Logistics Kenya", logo: "🌍" },
+  ];
+
   return (
     <div className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen">
       {/* Navigation Header */}
@@ -16,14 +46,14 @@ export default function PortfolioPage() {
       </header>
 
       {/* Hero Section - Left Sidebar + Main Content */}
-      <div className="min-h-[calc(100vh-80px)] flex">
+      <div className="min-h-[calc(100vh-80px)] flex flex-col lg:flex-row">
         {/* Left Sidebar */}
-        <aside className="w-80 bg-slate-800/50 border-r border-yellow-600/20 p-12 flex flex-col justify-between sticky top-20 h-[calc(100vh-80px)]">
+        <aside className="w-full lg:w-80 bg-slate-800/50 border-b lg:border-b-0 lg:border-r border-yellow-600/20 p-8 lg:p-12 flex flex-col justify-between sticky top-20 h-auto lg:h-[calc(100vh-80px)]">
           <div>
-            <h1 className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-500">
+            <h1 className="text-4xl lg:text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-500">
               Enock Karisa
             </h1>
-            <h2 className="text-xl text-gray-300 mb-8 font-light">
+            <h2 className="text-lg lg:text-xl text-gray-300 mb-8 font-light">
               Air Cargo Professional
             </h2>
             
@@ -33,7 +63,8 @@ export default function PortfolioPage() {
                 { label: "About", href: "#about" },
                 { label: "Skills", href: "#skills" },
                 { label: "Experience", href: "#experience" },
-                { label: "Certifications", href: "#certifications" },
+                { label: "Gallery", href: "#gallery" },
+                { label: "Partners", href: "#partners" },
               ].map((link) => (
                 <a
                   key={link.label}
@@ -47,32 +78,32 @@ export default function PortfolioPage() {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-6 pt-8 border-t border-yellow-600/20">
+          <div className="space-y-6 pt-8 border-t border-yellow-600/20 mt-8 lg:mt-0">
             <a
               href="mailto:enockkatore96@gmail.com"
               className="flex items-center gap-3 text-gray-300 hover:text-yellow-400 transition group"
             >
-              <Mail size={20} className="text-yellow-500" />
+              <Mail size={20} className="text-yellow-500 shrink-0" />
               <span className="text-sm">enockkatore96@gmail.com</span>
             </a>
             <a
               href="tel:+254794606252"
               className="flex items-center gap-3 text-gray-300 hover:text-yellow-400 transition group"
             >
-              <Phone size={20} className="text-yellow-500" />
+              <Phone size={20} className="text-yellow-500 shrink-0" />
               <span className="text-sm">+254 794 606 252</span>
             </a>
             <div className="flex items-center gap-3 text-gray-300">
-              <MapPin size={20} className="text-yellow-500" />
+              <MapPin size={20} className="text-yellow-500 shrink-0" />
               <span className="text-sm">Nairobi, Kenya</span>
             </div>
           </div>
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 px-12 py-12 overflow-y-auto">
+        <main className="flex-1 px-6 lg:px-12 py-12 overflow-y-auto">
           {/* About Section */}
-          <section id="about" className="mb-20 max-w-3xl">
+          <section id="about" className="mb-20 max-w-4xl">
             <div className="mb-12">
               <p className="text-gray-300 text-lg leading-relaxed mb-6">
                 I am a motivated and detail-oriented air cargo professional with a passion for excellence in logistics and customer service. With certification in IATA cargo management and hands-on experience in cargo operations, I bring precision, reliability, and dedication to every task.
@@ -84,25 +115,15 @@ export default function PortfolioPage() {
           </section>
 
           {/* Skills Grid */}
-          <section id="skills" className="mb-20 max-w-3xl">
-            <h3 className="text-2xl font-black text-yellow-400 mb-8 uppercase tracking-wider">Professional Skills</h3>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                "Air Cargo Operations",
-                "Cargo Documentation",
-                "Customer Support",
-                "Data Entry",
-                "TACT Calculations",
-                "Microsoft Office Suite",
-                "Communication",
-                "Attention to Detail",
-                "Teamwork",
-                "Problem Solving",
-              ].map((skill, idx) => (
+          <section id="skills" className="mb-20 max-w-4xl">
+            <h3 className="text-3xl font-black text-yellow-400 mb-8 uppercase tracking-wider">Professional Skills</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {skills.map((skill, idx) => (
                 <div
                   key={idx}
-                  className="bg-gradient-to-r from-yellow-600/10 to-transparent border border-yellow-600/30 rounded-lg p-4 hover:border-yellow-500 hover:from-yellow-600/20 transition"
+                  className="bg-gradient-to-r from-yellow-600/10 to-transparent border border-yellow-600/30 rounded-lg p-4 hover:border-yellow-500 hover:from-yellow-600/20 transition flex items-start gap-3"
                 >
+                  <Star size={20} className="text-yellow-500 shrink-0 mt-1" />
                   <p className="font-semibold text-gray-100">{skill}</p>
                 </div>
               ))}
@@ -110,77 +131,106 @@ export default function PortfolioPage() {
           </section>
 
           {/* Experience Timeline */}
-          <section id="experience" className="mb-20 max-w-3xl">
-            <h3 className="text-2xl font-black text-yellow-400 mb-8 uppercase tracking-wider">Experience</h3>
+          <section id="experience" className="mb-20 max-w-4xl">
+            <h3 className="text-3xl font-black text-yellow-400 mb-8 uppercase tracking-wider">Professional Experience</h3>
             <div className="space-y-8">
-              {[
-                {
-                  title: "Air Cargo Operations",
-                  period: "2020 – 2024",
-                  description: "Specialized in cargo handling, documentation, and customer communication.",
-                },
-                {
-                  title: "Customer Support Specialist",
-                  period: "2016 – 2020",
-                  description: "Provided professional client support and managed inquiries efficiently.",
-                },
-                {
-                  title: "Data Entry & Admin",
-                  period: "2015 – Present",
-                  description: "Maintained accurate records and database management with high precision.",
-                },
-              ].map((exp, idx) => (
+              <div className="border-l-4 border-yellow-500 pl-6 relative">
+                <div className="absolute -left-3 top-0 w-6 h-6 bg-yellow-500 rounded-full"></div>
+                <div className="flex items-start gap-3 mb-3">
+                  <Briefcase size={24} className="text-yellow-400 shrink-0" />
+                  <div>
+                    <h4 className="text-2xl font-bold text-yellow-400">1 Year Training Experience</h4>
+                    <p className="text-sm text-gray-400">DHL Express Kenya & Other Leading Cargo Companies</p>
+                  </div>
+                </div>
+                <div className="text-gray-300 space-y-2 ml-0">
+                  <p className="flex items-start gap-2">
+                    <span className="text-yellow-500 mt-1">•</span>
+                    <span>Practiced cargo acceptance procedures and documentation checks</span>
+                  </p>
+                  <p className="flex items-start gap-2">
+                    <span className="text-yellow-500 mt-1">•</span>
+                    <span>Prepared sample Air Waybills (AWB) with precision and accuracy</span>
+                  </p>
+                  <p className="flex items-start gap-2">
+                    <span className="text-yellow-500 mt-1">•</span>
+                    <span>Performed volumetric and chargeable weight calculations using TACT principles</span>
+                  </p>
+                  <p className="flex items-start gap-2">
+                    <span className="text-yellow-500 mt-1">•</span>
+                    <span>Gained understanding of IATA cargo regulations and international standards</span>
+                  </p>
+                  <p className="flex items-start gap-2">
+                    <span className="text-yellow-500 mt-1">•</span>
+                    <span>Worked with cross-functional teams in fast-paced logistics environment</span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="border-l-4 border-yellow-500 pl-6 relative">
+                <div className="absolute -left-3 top-0 w-6 h-6 bg-yellow-500 rounded-full"></div>
+                <h4 className="text-xl font-bold text-yellow-400 mb-1">IATA Cargo Introductory Diploma</h4>
+                <p className="text-sm text-gray-400 mb-3">Certified in April 2026</p>
+                <a
+                  href="/certificate.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition text-sm font-semibold"
+                >
+                  View Certificate <ExternalLink size={16} />
+                </a>
+              </div>
+            </div>
+          </section>
+
+          {/* Gallery Section */}
+          <section id="gallery" className="mb-20 max-w-4xl">
+            <h3 className="text-3xl font-black text-yellow-400 mb-8 uppercase tracking-wider">Air Cargo & Logistics Gallery</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {galleryImages.map((image, idx) => (
                 <div
                   key={idx}
-                  className="border-l-2 border-yellow-500 pl-6 relative"
+                  className="relative h-56 rounded-lg overflow-hidden border border-yellow-600/30 hover:border-yellow-500 transition group cursor-pointer"
                 >
-                  <div className="absolute -left-[13px] top-0 w-6 h-6 bg-yellow-500 rounded-full"></div>
-                  <h4 className="text-xl font-bold text-yellow-400 mb-1">{exp.title}</h4>
-                  <p className="text-sm text-gray-400 mb-2">{exp.period}</p>
-                  <p className="text-gray-300">{exp.description}</p>
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover group-hover:scale-110 transition duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition flex items-center justify-center">
+                    <p className="text-white font-bold text-center opacity-0 group-hover:opacity-100 transition">{image.alt}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Certifications Section */}
-          <section id="certifications" className="mb-20 max-w-3xl">
-            <h3 className="text-2xl font-black text-yellow-400 mb-8 uppercase tracking-wider">Certifications</h3>
-            <div className="space-y-4">
-              <div className="bg-gradient-to-r from-yellow-600/10 to-transparent border border-yellow-600/30 rounded-lg p-6 hover:border-yellow-500 transition">
-                <div className="flex items-start gap-4">
-                  <Certificate size={28} className="text-yellow-500 shrink-0 mt-1" />
-                  <div>
-                    <h4 className="text-lg font-bold text-yellow-400 mb-2">IATA Cargo Introductory Diploma</h4>
-                    <p className="text-gray-300 mb-3">Issued: April 2, 2026</p>
-                    <a
-                      href="/certificate.pdf"
-                      className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition text-sm font-semibold"
-                    >
-                      View Certificate <ExternalLink size={16} />
-                    </a>
-                  </div>
+          {/* Partnership Section */}
+          <section id="partners" className="mb-20 max-w-4xl">
+            <h3 className="text-3xl font-black text-yellow-400 mb-8 uppercase tracking-wider">Industry Partnerships</h3>
+            <p className="text-gray-300 mb-8">
+              Experienced with leading air cargo and logistics companies operating in Kenya:
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {partners.map((partner, idx) => (
+                <div
+                  key={idx}
+                  className="bg-gradient-to-br from-yellow-600/10 to-transparent border border-yellow-600/30 rounded-lg p-6 hover:border-yellow-500 hover:from-yellow-600/20 transition text-center"
+                >
+                  <div className="text-4xl mb-3">{partner.logo}</div>
+                  <h4 className="font-bold text-yellow-400">{partner.name}</h4>
                 </div>
-              </div>
-
-              <div className="bg-gradient-to-r from-yellow-600/10 to-transparent border border-yellow-600/30 rounded-lg p-6 hover:border-yellow-500 transition">
-                <div className="flex items-start gap-4">
-                  <Award size={28} className="text-yellow-500 shrink-0 mt-1" />
-                  <div>
-                    <h4 className="text-lg font-bold text-yellow-400 mb-2">Professional Air Cargo Operations</h4>
-                    <p className="text-gray-300">Comprehensive training in international air freight logistics</p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </section>
 
           {/* Call to Action */}
-          <section className="mb-12 max-w-3xl">
+          <section className="mb-12 max-w-4xl">
             <div className="bg-gradient-to-r from-yellow-600/20 to-transparent border border-yellow-600/50 rounded-lg p-8 text-center">
               <h3 className="text-2xl font-black text-yellow-400 mb-4">Ready to Connect?</h3>
               <p className="text-gray-300 mb-6">
-                I&apos;m open to opportunities in air cargo, logistics, and customer-focused roles.
+                I&apos;m open to opportunities in air cargo operations, logistics coordination, and customer-focused roles with leading organizations.
               </p>
               <a
                 href="mailto:enockkatore96@gmail.com"
