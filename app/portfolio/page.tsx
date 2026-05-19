@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Phone, MapPin, ExternalLink, Certificate, Award } from "lucide-react";
+import { Mail, Phone, MapPin, ExternalLink, Award, Trophy } from "lucide-react";
 
 export default function PortfolioPage() {
   return (
