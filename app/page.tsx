@@ -17,6 +17,10 @@ export default function Home() {
     "/airplane-takeoff.jpg",
     "/airplane-landing.jpg",
     "/cargo-warehouse.jpg",
+    "/cargo-logistics-1.jpg",
+    "/cargo-logistics-2.jpg",
+    "/cargo-logistics-3.jpg",
+    "/cargo-logistics-4.jpg",
   ];
 
   useEffect(() => {
@@ -190,28 +194,27 @@ export default function Home() {
             <h3 className="text-3xl font-bold text-amber-400 mb-2">Enock Karisa Kahindi</h3>
             <p className="text-xl text-slate-300 mb-8 font-light">Founder & CEO</p>
             
-            {/* Certificate Display */}
-            <motion.button
-              onClick={() => setShowCertificate(!showCertificate)}
-              className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 px-8 py-3 rounded-xl font-semibold transition"
-            >
-              <FileText size={20} /> View IATA Certification
-            </motion.button>
-
-            {showCertificate && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-12 bg-slate-900 p-8 rounded-2xl border border-amber-600/30"
+              <motion.button
+                onClick={() => setShowCertificate(!showCertificate)}
+                className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 px-8 py-3 rounded-xl font-semibold transition"
               >
-                <iframe
-                  src="/certificate.pdf"
-                  className="w-full h-96 rounded-lg"
-                  title="IATA Certification"
-                />
-                <p className="text-slate-300 mt-4 text-center">IATA Cargo Introductory Diploma - Issued April 2, 2026</p>
-              </motion.div>
-            )}
+                <FileText size={20} /> View IATA Certification
+              </motion.button>
+
+              {showCertificate && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-12 bg-slate-900 p-8 rounded-2xl border border-amber-600/30"
+                >
+                  <iframe
+                    src="/iata-certificate.pdf"
+                    className="w-full h-96 rounded-lg"
+                    title="IATA Certification"
+                  />
+                  <p className="text-slate-300 mt-4 text-center">IATA Cargo Introductory Diploma - Issued April 2, 2026</p>
+                </motion.div>
+              )}
           </motion.div>
         </div>
       </section>
