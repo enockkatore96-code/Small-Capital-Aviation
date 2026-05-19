@@ -12,15 +12,15 @@ export default function Home() {
 
   const slideImages = [
     "/logo.png",
-    "/cargo-aircraft.jpg",
-    "/cargo-plane-flight.jpg",
     "/airplane-takeoff.jpg",
     "/airplane-landing.jpg",
-    "/cargo-warehouse.jpg",
     "/cargo-logistics-1.jpg",
     "/cargo-logistics-2.jpg",
     "/cargo-logistics-3.jpg",
     "/cargo-logistics-4.jpg",
+    "/awb-documentation.jpg",
+    "/cargo-team.jpg",
+    "/weight-calculation.jpg",
   ];
 
   useEffect(() => {
