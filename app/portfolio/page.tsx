@@ -26,12 +26,10 @@ export default function PortfolioPage() {
   ];
 
   const partners = [
-    { name: "DHL Kenya", logo: "🚚" },
-    { name: "Kenya Airways Cargo", logo: "✈️" },
-    { name: "JACO Kenya", logo: "📦" },
-    { name: "KMPDU Cargo", logo: "🔧" },
-    { name: "Phoenix Air Cargo", logo: "🛫" },
-    { name: "AAA Logistics Kenya", logo: "🌍" },
+    { name: "DHL Kenya", logo: "/dhl-logo.jpg" },
+    { name: "Kenya Airways Cargo", logo: "/kenya-airways-cargo-logo.jpg" },
+    { name: "Phoenix Airways", logo: "/phoenix-airways-logo.png" },
+    { name: "AAA Logistics Kenya", logo: "/aaa-logistics-logo.jpg" },
   ];
 
   return (
@@ -80,11 +78,11 @@ export default function PortfolioPage() {
           {/* Contact Info */}
           <div className="space-y-6 pt-8 border-t border-yellow-600/20 mt-8 lg:mt-0">
             <a
-              href="mailto:enockkatore96@gmail.com"
+              href="mailto:kahindienock83@gmail.com"
               className="flex items-center gap-3 text-gray-300 hover:text-yellow-400 transition group"
             >
               <Mail size={20} className="text-yellow-500 shrink-0" />
-              <span className="text-sm">enockkatore96@gmail.com</span>
+              <span className="text-sm">kahindienock83@gmail.com</span>
             </a>
             <a
               href="tel:+254794606252"
@@ -212,14 +210,21 @@ export default function PortfolioPage() {
             <p className="text-gray-300 mb-8">
               Experienced with leading air cargo and logistics companies operating in Kenya:
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
               {partners.map((partner, idx) => (
                 <div
                   key={idx}
-                  className="bg-gradient-to-br from-yellow-600/10 to-transparent border border-yellow-600/30 rounded-lg p-6 hover:border-yellow-500 hover:from-yellow-600/20 transition text-center"
+                  className="bg-gradient-to-br from-yellow-600/10 to-transparent border border-yellow-600/30 rounded-lg p-6 hover:border-yellow-500 hover:from-yellow-600/20 transition flex flex-col items-center justify-center"
                 >
-                  <div className="text-4xl mb-3">{partner.logo}</div>
-                  <h4 className="font-bold text-yellow-400">{partner.name}</h4>
+                  <div className="relative w-24 h-24 mb-3">
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <h4 className="font-bold text-yellow-400 text-sm text-center">{partner.name}</h4>
                 </div>
               ))}
             </div>
@@ -233,7 +238,7 @@ export default function PortfolioPage() {
                 I&apos;m open to opportunities in air cargo operations, logistics coordination, and customer-focused roles with leading organizations.
               </p>
               <a
-                href="mailto:enockkatore96@gmail.com"
+                href="mailto:kahindienock83@gmail.com?subject=Let%27s%20Connect&body=Hi%20Enock%2C%20I%27d%20like%20to%20discuss%20opportunities%20with%20you."
                 className="inline-block bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold px-8 py-3 rounded-lg transition"
               >
                 Get In Touch

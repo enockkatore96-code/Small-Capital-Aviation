@@ -1,12 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Phone, MapPin, Mail, ChevronRight, FileText } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   const [showCertificate, setShowCertificate] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slideImages = [
+    "/logo.png",
+    "/cargo-aircraft.jpg",
+    "/cargo-plane-flight.jpg",
+    "/airplane-takeoff.jpg",
+    "/airplane-landing.jpg",
+    "/cargo-warehouse.jpg",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slideImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [slideImages.length]);
 
   return (
     <div className="bg-slate-900 text-white min-h-screen">
@@ -33,27 +51,81 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section with Motto */}
+      {/* Hero Section with Slideshow */}
       <section className="relative py-32 px-6 overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 right-20 w-96 h-96 bg-amber-500 rounded-full blur-3xl"></div>
+        {/* Slideshow Background */}
+        <div className="absolute inset-0">
+          <div className="relative w-full h-full">
+            {slideImages.map((image, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: currentSlide === idx ? 1 : 0 }}
+                transition={{ duration: 1 }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={image}
+                  alt={`Slide ${idx + 1}`}
+                  fill
+                  className="object-cover"
+                  priority={idx === 0}
+                />
+              </motion.div>
+            ))}
+          </div>
+          {/* Overlay for text readability */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
         </div>
+
+        {/* Content */}
         <div className="max-w-6xl mx-auto relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-6xl md:text-7xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">
+            {/* Animated Logo */}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-12 flex justify-center"
+            >
+              <div className="relative w-48 h-48 md:w-56 md:h-56">
+                <Image
+                  src="/logo.png"
+                  alt="Small Capital Aviation Logo"
+                  fill
+                  className="object-contain drop-shadow-2xl"
+                />
+              </div>
+            </motion.div>
+
+            <h1 className="text-6xl md:text-7xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-100">
               Delivering Beyond Horizons
             </h1>
-            <p className="text-xl md:text-2xl text-slate-300 mb-12 font-light max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-slate-200 mb-12 font-light max-w-3xl mx-auto">
               Excellence in Global Air Cargo & Logistics
             </p>
             <a href="#services" className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 px-10 py-4 rounded-xl font-bold text-lg transition">
               Explore Services <ChevronRight size={24} />
             </a>
           </motion.div>
+        </div>
+
+        {/* Slide Indicators */}
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+          {slideImages.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              className={`h-2 rounded-full transition-all ${
+                currentSlide === idx ? "bg-amber-500 w-8" : "bg-slate-500 w-2"
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
         </div>
       </section>
 
@@ -160,7 +232,7 @@ export default function Home() {
               <Phone className="w-12 h-12 text-amber-400 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-amber-400 mb-2">Call Us</h3>
               <p className="text-slate-300 font-semibold">+254 794 606 252</p>
-              <p className="text-sm text-slate-400 mt-2">Tap to call or text</p>
+              <p className="text-sm text-slate-400 mt-2">Click to call or text</p>
             </motion.a>
 
             {/* Email */}
