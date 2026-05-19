@@ -1,169 +1,201 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, ExternalLink, Certificate, Award } from "lucide-react";
 
 export default function PortfolioPage() {
   return (
-    <div className="bg-white text-gray-900">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <div className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen">
+      {/* Navigation Header */}
+      <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-yellow-600/30">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition">
-            <ArrowLeft size={20} />
-            Back to Aviation
+          <Link href="/" className="flex items-center gap-2 text-yellow-500 hover:text-yellow-400 transition font-bold">
+            ← Back to Small Capital Aviation
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">Enock Karisa Kahindi</h1>
-          <div className="w-10" />
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-blue-50 to-white border-b border-gray-200">
-        <div className="max-w-5xl mx-auto px-6 py-20 text-center">
-          <h1 className="text-5xl md:text-6xl font-black mb-4 text-balance text-gray-900">
-            Enock Karisa Kahindi
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Entry-Level Air Cargo, Customer Support & Data Entry Professional
-          </p>
-          <div className="flex justify-center gap-4 flex-wrap">
+      {/* Hero Section - Left Sidebar + Main Content */}
+      <div className="min-h-[calc(100vh-80px)] flex">
+        {/* Left Sidebar */}
+        <aside className="w-80 bg-slate-800/50 border-r border-yellow-600/20 p-12 flex flex-col justify-between sticky top-20 h-[calc(100vh-80px)]">
+          <div>
+            <h1 className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-500">
+              Enock Karisa
+            </h1>
+            <h2 className="text-xl text-gray-300 mb-8 font-light">
+              Air Cargo Professional
+            </h2>
+            
+            {/* Navigation Links */}
+            <nav className="space-y-4">
+              {[
+                { label: "About", href: "#about" },
+                { label: "Skills", href: "#skills" },
+                { label: "Experience", href: "#experience" },
+                { label: "Certifications", href: "#certifications" },
+              ].map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-gray-400 hover:text-yellow-400 transition block text-sm font-semibold uppercase tracking-wider"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          {/* Contact Info */}
+          <div className="space-y-6 pt-8 border-t border-yellow-600/20">
             <a
               href="mailto:enockkatore96@gmail.com"
-              className="bg-blue-600 text-white px-8 py-3 rounded-xl shadow hover:bg-blue-700 transition font-bold"
+              className="flex items-center gap-3 text-gray-300 hover:text-yellow-400 transition group"
             >
-              Contact Me
+              <Mail size={20} className="text-yellow-500" />
+              <span className="text-sm">enockkatore96@gmail.com</span>
             </a>
-            <a
-              href="#skills"
-              className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-xl hover:bg-blue-50 transition font-bold"
-            >
-              View Skills
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <div className="bg-white rounded-3xl shadow-lg p-10 border border-gray-100">
-          <h2 className="text-4xl font-bold mb-6 text-blue-600">About Me</h2>
-          <p className="text-gray-700 leading-8 text-lg">
-            I am a motivated and detail-oriented individual with interests in air cargo operations,
-            customer service, and data entry. I enjoy working with people, learning new skills,
-            and delivering organized and accurate work. I am passionate about professionalism,
-            teamwork, and continuous growth.
-          </p>
-        </div>
-      </section>
-
-      {/* Skills */}
-      <section id="skills" className="max-w-5xl mx-auto px-6 py-16">
-        <h2 className="text-4xl font-bold mb-12 text-center">Professional Skills</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            "Customer Support",
-            "Data Entry",
-            "Typing Skills",
-            "Microsoft Word & Excel",
-            "Communication Skills",
-            "Teamwork",
-            "Cargo Documentation",
-            "TACT Calculations",
-            "Attention to Detail",
-          ].map((skill, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-2xl shadow-md p-8 text-center font-semibold text-lg hover:shadow-lg hover:scale-105 transition border border-gray-100"
-            >
-              {skill}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Education */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <h2 className="text-4xl font-bold mb-12 text-center">Education</h2>
-        <div className="space-y-6">
-          <div className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-lg transition">
-            <h3 className="text-xl font-bold mb-3 text-blue-600">IATA Certification</h3>
-            <p className="text-gray-600 text-lg font-medium">
-              Introductory in Air Cargo Management (2025 – 2026)
-            </p>
-          </div>
-
-          <div className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-lg transition">
-            <h3 className="text-xl font-bold mb-3 text-blue-600">Air Cargo Operations</h3>
-            <p className="text-gray-600 text-lg font-medium">
-              2020 – 2024
-            </p>
-          </div>
-
-          <div className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-lg transition">
-            <h3 className="text-xl font-bold mb-3 text-blue-600">Customer Support</h3>
-            <p className="text-gray-600 text-lg font-medium">
-              2016 – 2020
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <div className="bg-white rounded-3xl shadow-lg p-10 border border-gray-100">
-          <h2 className="text-3xl font-bold mb-6">Certifications</h2>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center shrink-0 font-bold text-lg">
-              ✓
-            </div>
-            <p className="text-lg text-gray-700">
-              IATA Cargo Introductory Diploma
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-3xl shadow-lg p-12 text-center">
-          <h2 className="text-4xl font-bold mb-6">Get In Touch</h2>
-          <p className="text-xl mb-12 opacity-90 max-w-2xl mx-auto">
-            I am open to opportunities in customer service, logistics, air cargo, and data entry.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
-            <a
-              href="mailto:enockkatore96@gmail.com"
-              className="bg-white/10 hover:bg-white/20 p-8 rounded-2xl transition backdrop-blur-sm"
-            >
-              <Mail size={32} className="mx-auto mb-4" />
-              <p className="text-sm opacity-80 mb-2">Email</p>
-              <p className="font-bold break-all">enockkatore96@gmail.com</p>
-            </a>
-
             <a
               href="tel:+254794606252"
-              className="bg-white/10 hover:bg-white/20 p-8 rounded-2xl transition backdrop-blur-sm"
+              className="flex items-center gap-3 text-gray-300 hover:text-yellow-400 transition group"
             >
-              <Phone size={32} className="mx-auto mb-4" />
-              <p className="text-sm opacity-80 mb-2">Phone</p>
-              <p className="font-bold">+254 794606252</p>
+              <Phone size={20} className="text-yellow-500" />
+              <span className="text-sm">+254 794 606 252</span>
             </a>
-
-            <div className="bg-white/10 p-8 rounded-2xl backdrop-blur-sm">
-              <MapPin size={32} className="mx-auto mb-4" />
-              <p className="text-sm opacity-80 mb-2">Location</p>
-              <p className="font-bold">Nairobi, Kenya</p>
+            <div className="flex items-center gap-3 text-gray-300">
+              <MapPin size={20} className="text-yellow-500" />
+              <span className="text-sm">Nairobi, Kenya</span>
             </div>
           </div>
-        </div>
-      </section>
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 px-12 py-12 overflow-y-auto">
+          {/* About Section */}
+          <section id="about" className="mb-20 max-w-3xl">
+            <div className="mb-12">
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                I am a motivated and detail-oriented air cargo professional with a passion for excellence in logistics and customer service. With certification in IATA cargo management and hands-on experience in cargo operations, I bring precision, reliability, and dedication to every task.
+              </p>
+              <p className="text-gray-400 text-lg leading-relaxed">
+                Currently pursuing opportunities to leverage my expertise in air freight operations, while continuously developing my skills in logistics coordination and customer relationship management.
+              </p>
+            </div>
+          </section>
+
+          {/* Skills Grid */}
+          <section id="skills" className="mb-20 max-w-3xl">
+            <h3 className="text-2xl font-black text-yellow-400 mb-8 uppercase tracking-wider">Professional Skills</h3>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                "Air Cargo Operations",
+                "Cargo Documentation",
+                "Customer Support",
+                "Data Entry",
+                "TACT Calculations",
+                "Microsoft Office Suite",
+                "Communication",
+                "Attention to Detail",
+                "Teamwork",
+                "Problem Solving",
+              ].map((skill, idx) => (
+                <div
+                  key={idx}
+                  className="bg-gradient-to-r from-yellow-600/10 to-transparent border border-yellow-600/30 rounded-lg p-4 hover:border-yellow-500 hover:from-yellow-600/20 transition"
+                >
+                  <p className="font-semibold text-gray-100">{skill}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Experience Timeline */}
+          <section id="experience" className="mb-20 max-w-3xl">
+            <h3 className="text-2xl font-black text-yellow-400 mb-8 uppercase tracking-wider">Experience</h3>
+            <div className="space-y-8">
+              {[
+                {
+                  title: "Air Cargo Operations",
+                  period: "2020 – 2024",
+                  description: "Specialized in cargo handling, documentation, and customer communication.",
+                },
+                {
+                  title: "Customer Support Specialist",
+                  period: "2016 – 2020",
+                  description: "Provided professional client support and managed inquiries efficiently.",
+                },
+                {
+                  title: "Data Entry & Admin",
+                  period: "2015 – Present",
+                  description: "Maintained accurate records and database management with high precision.",
+                },
+              ].map((exp, idx) => (
+                <div
+                  key={idx}
+                  className="border-l-2 border-yellow-500 pl-6 relative"
+                >
+                  <div className="absolute -left-[13px] top-0 w-6 h-6 bg-yellow-500 rounded-full"></div>
+                  <h4 className="text-xl font-bold text-yellow-400 mb-1">{exp.title}</h4>
+                  <p className="text-sm text-gray-400 mb-2">{exp.period}</p>
+                  <p className="text-gray-300">{exp.description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Certifications Section */}
+          <section id="certifications" className="mb-20 max-w-3xl">
+            <h3 className="text-2xl font-black text-yellow-400 mb-8 uppercase tracking-wider">Certifications</h3>
+            <div className="space-y-4">
+              <div className="bg-gradient-to-r from-yellow-600/10 to-transparent border border-yellow-600/30 rounded-lg p-6 hover:border-yellow-500 transition">
+                <div className="flex items-start gap-4">
+                  <Certificate size={28} className="text-yellow-500 shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-lg font-bold text-yellow-400 mb-2">IATA Cargo Introductory Diploma</h4>
+                    <p className="text-gray-300 mb-3">Issued: April 2, 2026</p>
+                    <a
+                      href="/certificate.pdf"
+                      className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition text-sm font-semibold"
+                    >
+                      View Certificate <ExternalLink size={16} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-yellow-600/10 to-transparent border border-yellow-600/30 rounded-lg p-6 hover:border-yellow-500 transition">
+                <div className="flex items-start gap-4">
+                  <Award size={28} className="text-yellow-500 shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-lg font-bold text-yellow-400 mb-2">Professional Air Cargo Operations</h4>
+                    <p className="text-gray-300">Comprehensive training in international air freight logistics</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Call to Action */}
+          <section className="mb-12 max-w-3xl">
+            <div className="bg-gradient-to-r from-yellow-600/20 to-transparent border border-yellow-600/50 rounded-lg p-8 text-center">
+              <h3 className="text-2xl font-black text-yellow-400 mb-4">Ready to Connect?</h3>
+              <p className="text-gray-300 mb-6">
+                I&apos;m open to opportunities in air cargo, logistics, and customer-focused roles.
+              </p>
+              <a
+                href="mailto:enockkatore96@gmail.com"
+                className="inline-block bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold px-8 py-3 rounded-lg transition"
+              >
+                Get In Touch
+              </a>
+            </div>
+          </section>
+        </main>
+      </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 py-8 px-6 text-center text-gray-600">
-        <p>Portfolio of Enock Karisa Kahindi © 2025</p>
+      <footer className="border-t border-yellow-600/20 bg-slate-900/50 py-8 px-6 text-center text-gray-500">
+        <p>Portfolio of Enock Karisa Kahindi © 2025 | Air Cargo Professional</p>
       </footer>
     </div>
   );
